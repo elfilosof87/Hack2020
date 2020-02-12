@@ -164,7 +164,6 @@ const CreateProfile = ({ createProfile, history }) => {
                 onChange={e => onChange(e)}
               />
             </div>
-            company
             <div className='form-group social-input'>
               <i className='fab fa-facebook fa-2x'></i>
               <input
