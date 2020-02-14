@@ -70,7 +70,7 @@ const App = () => {
               />
               <PrivateRoute exact path='/posts' component={Posts} />
               <PrivateRoute exact path='/posts/:id' component={Post} />
-              <Route exact path='/message' component={M1} />
+              <PrivateRoute exact path='/message' component={M1} />
             </Switch>
           </section>
         </Fragment>
