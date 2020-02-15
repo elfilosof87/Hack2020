@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../actions/post";
@@ -12,8 +11,6 @@ const PostForm = ({ addPost, history }) => {
     condition: "",
     category: ""
   });
-
-  const [toDateDisabled, toggleDisabled] = useState(false);
 
   const { text, author, title, condition, category } = formData;
 
