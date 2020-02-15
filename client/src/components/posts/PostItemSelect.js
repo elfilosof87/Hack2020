@@ -5,7 +5,7 @@ import Moment from "react-moment";
 import { connect } from "react-redux";
 import { addLike, removeLike, deletePost } from "../../actions/post";
 
-const PostItem = ({
+const PostItemSelect = ({
   addLike,
   removeLike,
   deletePost,
@@ -17,7 +17,7 @@ const PostItem = ({
     name,
     title,
     author,
-    category,
+    category = selectValue,
     condition,
     avatar,
     user,
@@ -35,16 +35,10 @@ const PostItem = ({
       </Link>
     </div>
     <div>
-      <h2 style={{ textTransform: "capitalize" }}>{title}</h2>
-
+      <h3>{title}</h3>
+      <p className='my-1'>{text}</p>
       <p className='my-1'>
         By: <span className='text-primary'>{author}</span>
-      </p>
-      <p className=''>
-        Description:{" "}
-        <span className='text-primary' style={{ textTransform: "capitalize" }}>
-          {text}
-        </span>
       </p>
       <p className='my-1'>
         Category: <span className='text-primary'>{category}</span>
@@ -98,11 +92,11 @@ const PostItem = ({
   </div>
 );
 
-PostItem.defaultProps = {
+PostItemSelect.defaultProps = {
   showActions: true
 };
 
-PostItem.propTypes = {
+PostItemSelect.propTypes = {
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
@@ -116,5 +110,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
-  PostItem
+  PostItemSelect
 );

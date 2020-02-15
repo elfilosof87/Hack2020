@@ -1,11 +1,17 @@
 require("dotenv").config({ path: ".env" });
-
+const { check, validationResult } = require("express-validator");
+const request = require("request");
 const express = require("express");
 const connectDB = require("./config/db");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Chatkit = require("@pusher/chatkit-server");
+const router = express.Router();
+const User = require("./models/User");
+const Profile = require("./models/Profile");
+const Post = require("./models/Post");
+const auth = require("./middleware/auth");
 
 const app = express();
 
@@ -36,6 +42,22 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname), "client", "build", "index.html");
   });
 }
+router.get("/message", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id
+    }).populate("user", ["name", "avatar"]);
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    req.status(500).send("Server Error");
+  }
+});
 
 app.post("/users", (req, res) => {
   const { userId } = req.body;

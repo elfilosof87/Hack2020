@@ -41,7 +41,7 @@ router.post(
       check("status", "Status is required")
         .not()
         .isEmpty(),
-      check("skills", "Skills is required")
+      check("instagramusername", "Instagram username is required")
         .not()
         .isEmpty()
     ]
@@ -53,14 +53,10 @@ router.post(
     }
 
     const {
-      company,
-      website,
       location,
       bio,
       status,
-      githubusername,
-      skills,
-      youtube,
+      instagramusername,
       facebook,
       twitter,
       instagram,
@@ -71,21 +67,15 @@ router.post(
 
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (company) profileFields.company = company;
-    if (website) profileFields.website = website;
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
-    if (githubusername) profileFields.githubusername = githubusername;
-    if (skills) {
-      profileFields.skills = skills.split(",").map(skill => skill.trim());
-    }
+    if (instagramusername) profileFields.instagramusername = instagramusername;
 
     //Build social object
 
     profileFields.social = {};
 
-    if (youtube) profileFields.social.youtube = youtube;
     if (twitter) profileFields.social.twitter = twitter;
     if (facebook) profileFields.social.facebook = facebook;
     if (linkedin) profileFields.social.linkedin = linkedin;
@@ -264,7 +254,7 @@ router.put(
   [
     auth,
     [
-      check("school", "School is required")
+      check("institution", "Institution is required")
         .not()
         .isEmpty(),
       check("degree", "Degree is required")
@@ -285,7 +275,7 @@ router.put(
     }
 
     const {
-      school,
+      institution,
       degree,
       fieldofstudy,
       from,
@@ -295,7 +285,7 @@ router.put(
     } = req.body;
 
     const newEdu = {
-      school,
+      institution,
       degree,
       fieldofstudy,
       from,

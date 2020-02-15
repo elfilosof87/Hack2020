@@ -13,6 +13,22 @@ const PostSchema = new Schema({
   name: {
     type: String
   },
+  title: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  condition: {
+    type: String,
+    required: true
+  },
   avatar: {
     type: String
   },

@@ -6,7 +6,7 @@ import { addEducation } from "../../actions/profile";
 
 const AddEducation = ({ addEducation, history }) => {
   const [formData, setFormData] = useState({
-    school: "",
+    institution: "",
     degree: "",
     fieldofstudy: "",
     from: "",
@@ -18,7 +18,7 @@ const AddEducation = ({ addEducation, history }) => {
   const [toDateDisabled, toggleDisabled] = useState(false);
 
   const {
-    school,
+    institution,
     degree,
     fieldofstudy,
     from,
@@ -47,9 +47,9 @@ const AddEducation = ({ addEducation, history }) => {
         <div className='form-group'>
           <input
             type='text'
-            placeholder='* School'
-            name='school'
-            value={school}
+            placeholder='* Institution'
+            name='institution'
+            value={institution}
             onChange={e => onChange(e)}
             required
           />

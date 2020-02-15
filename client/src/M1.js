@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   handleInput,
   connectToChatkit,
@@ -10,9 +12,8 @@ import Dialog from "./message/Dialog";
 import RoomList from "./message/RoomList";
 import ChatSession from "./message/ChatSession";
 import RoomUsers from "./message/RoomUsers";
+import { getCurrentProfile } from "./actions/profile";
 
-import "skeleton-css/css/normalize.css";
-import "skeleton-css/css/skeleton.css";
 import "./App1.css";
 
 class M1 extends Component {
@@ -85,6 +86,7 @@ class M1 extends Component {
                 className='message-input'
                 placeholder='Type your message'
                 onChange={this.handleInput}
+                autoComplete='off'
               />
             </form>
           </footer>
@@ -110,4 +112,12 @@ class M1 extends Component {
   }
 }
 
-export default M1;
+M1.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, { getCurrentProfile })(M1);

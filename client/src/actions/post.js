@@ -28,6 +28,22 @@ export const getPosts = () => async dispatch => {
   }
 };
 
+export const getPostsUser = () => async dispatch => {
+  try {
+    const res = await axios.get("/api/posts/me");
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 // Add like
 export const addLike = id => async dispatch => {
   try {
@@ -82,7 +98,7 @@ export const deletePost = id => async dispatch => {
 };
 
 // Add post
-export const addPost = formData => async dispatch => {
+export const addPost = (formData, history, edit = false) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"

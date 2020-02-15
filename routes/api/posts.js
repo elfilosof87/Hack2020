@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator/check");
+const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 
 const Post = require("../../models/Post");
@@ -16,6 +16,18 @@ router.post(
     auth,
     [
       check("text", "Text is required")
+        .not()
+        .isEmpty(),
+      check("author", "Author is required")
+        .not()
+        .isEmpty(),
+      check("category", "Category is required")
+        .not()
+        .isEmpty(),
+      check("condition", "Condition is required")
+        .not()
+        .isEmpty(),
+      check("title", "Title is required")
         .not()
         .isEmpty()
     ]
@@ -33,7 +45,11 @@ router.post(
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
+        user: req.user.id,
+        title: req.body.title,
+        author: req.body.author,
+        category: req.body.category,
+        condition: req.body.condition
       });
 
       const post = await newPost.save();
@@ -52,6 +68,19 @@ router.post(
 router.get("/", auth, async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    GET api/posts/me
+// @desc     Get all posts of the user
+// @access   Private
+router.get("/me", auth, async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.user.id }).sort({ date: -1 });
     res.json(posts);
   } catch (err) {
     console.error(err.message);
