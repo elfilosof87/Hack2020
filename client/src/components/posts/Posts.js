@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
@@ -10,6 +10,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
+  const [displayPost, togglePost] = useState(false);
 
   return loading ? (
     <Spinner />
@@ -19,7 +20,16 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
       <p className='lead'>
         <i className='fas fa-user' /> Welcome to the community
       </p>
-      <PostForm />
+      <div className='my-2'>
+        <button
+          onClick={() => togglePost(!displayPost)}
+          type='button'
+          className='btn btn-light'
+        >
+          Write a post
+        </button>
+      </div>
+      {displayPost && <PostForm />}
 
       <div className='posts'>
         {posts.map(post => (
