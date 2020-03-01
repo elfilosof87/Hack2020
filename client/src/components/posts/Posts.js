@@ -11,6 +11,11 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
     getPosts();
   }, [getPosts]);
   const [displayPost, togglePost] = useState(false);
+  if (!displayPost) {
+    var butText = "Write a post";
+  } else {
+    var butText = "Close options";
+  }
 
   return loading ? (
     <Spinner />
@@ -26,7 +31,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
           type='button'
           className='btn btn-light'
         >
-          Write a post
+          {butText}
         </button>
       </div>
       {displayPost && <PostForm />}
